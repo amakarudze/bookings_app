@@ -1,0 +1,8 @@
+# Database
+db.sqlite3
+
+#IDE
+.idea/
+
+#pycache
+.pycache/
