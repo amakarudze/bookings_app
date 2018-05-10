@@ -6,3 +6,6 @@ db.sqlite3
 
 #pycache
 .pycache/
+
+#test logs
+geckodriver.log
