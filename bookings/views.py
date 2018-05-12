@@ -3,4 +3,9 @@ from django.http import HttpResponse
 
 
 def home_page(request):
-    return render(request, 'bookings/index.html')
+    data = {
+        'new_booking_name': request.POST.get('booking_name', ''),
+        'new_start_date': request.POST.get('start_date',''),
+        'new_end_date': request.POST.get('end_date')
+        }
+    return render(request, 'bookings/index.html', {'data': data})

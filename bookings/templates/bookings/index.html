@@ -6,12 +6,15 @@
 </head>
 <body>
     <h1>Book Boardroom</h1>
-    <input id="id_new_booking" placeholder="Enter booking name">
-    <input id="id_start_date" placeholder="Enter start date/time">
-    <input id="id_end_date" placeholder="Enter end date/time">
+    <form method="POST">
+        <input name="booking_name" id="id_new_booking" placeholder="Enter booking name" />
+        <input name="start_date" id="id_start_date" placeholder="Enter start date/time" />
+        <input name="end_date" id="id_end_date" placeholder="Enter end date/time" />
+        {% csrf_token %}
+    </form>
 
-    <table id="id_booking_table">
-        <tr></tr>
+    <table id="id_bookings_table">
+        <tr><td>{{ data.new_booking_name }}</td></tr>
     </table>
 
 </body>

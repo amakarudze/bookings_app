@@ -36,33 +36,34 @@ class NewBookingTest(unittest.TestCase):
         inputbox.send_keys('Meeting with Dan from B2C.')
 
         # Next she is prompted to enter the start date of her meeting.
-        inputbox2 = self.browser.find_element_by_id('id_start_date')
+        inputbox1 = self.browser.find_element_by_id('id_start_date')
         self.assertEqual(
-            inputbox2.get_attribute('placeholder'),
+            inputbox1.get_attribute('placeholder'),
             'Enter start date/time'
         )
         # She enters the start date "19/05/2018" and time "9 am".
-        inputbox2.send_keys(datetime.datetime(2018, 5, 19, 9, 0).strftime('%Y/%m/%d %H:%M'))
+        inputbox1.send_keys(datetime.datetime(2018, 5, 19, 9, 0).strftime('%Y/%m/%d %H:%M'))
 
         # Next, she's asked to enter the end time of her meeting.
-        inputbox3 = self.browser.find_element_by_id('id_end_date')
+        inputbox2 = self.browser.find_element_by_id('id_end_date')
         self.assertEqual(
-            inputbox3.get_attribute('placeholder'),
+            inputbox2.get_attribute('placeholder'),
             'Enter end date/time'
         )
 
         # She enters a end time of "10am" on the same day.
         # The meeting is only 1 hour long
-        inputbox3.send_keys(datetime.datetime(2018, 5, 19, 10, 0).strftime('%Y/%m/%d %H:%M'))
+        inputbox2.send_keys(datetime.datetime(2018, 5, 19, 10, 0).strftime('%Y/%m/%d %H:%M'))
 
         # When she hits enter, the page updates, and now the page lists
         # "9am - 10am: Meeting with Dan from B2C" as a booking in a booking list
-        inputbox3.send_keys(Keys.ENTER)
-        time.sleep(1)
+        inputbox2.send_keys(Keys.ENTER)
+        time.sleep(3)
 
-        table = self.browser.find_element_by_id('id_booking_table')
-        rows = table.find_element_by_tag_name('tr')
-        self.assertTrue(any(row.text == 'Meeting with Dan from B2C' for row in rows))
+        table = self.browser.find_element_by_id('id_bookings_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertTrue(any(row.text =='Meeting with Dan from B2C.' for row in rows),
+            f"New booking item did not appear in table. Contents were:\n{table.text}")
 
         # There is still a form inviting her to add another booking. She
         # enters "12 - 1: Appraisal Meeting with Marketing Team" (Edith is very methodical)
