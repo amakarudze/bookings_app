@@ -39,21 +39,21 @@ class NewBookingTest(unittest.TestCase):
         inputbox2 = self.browser.find_element_by_id('id_start_date')
         self.assertEqual(
             inputbox2.get_attribute('placeholder'),
-            'Start date/time'
+            'Enter start date/time'
         )
         # She enters the start date "19/05/2018" and time "9 am".
-        inputbox2.send_keys(datetime.datetime(2018, 5, 19, 9, 0, 0))
+        inputbox2.send_keys(datetime.datetime(2018, 5, 19, 9, 0).strftime('%Y/%m/%d %H:%M'))
 
         # Next, she's asked to enter the end time of her meeting.
         inputbox3 = self.browser.find_element_by_id('id_end_date')
         self.assertEqual(
             inputbox3.get_attribute('placeholder'),
-            'End date/time'
+            'Enter end date/time'
         )
 
         # She enters a end time of "10am" on the same day.
         # The meeting is only 1 hour long
-        inputbox3.send_keys(datetime.datetime(2018, 5, 19, 10, 0, 0))
+        inputbox3.send_keys(datetime.datetime(2018, 5, 19, 10, 0).strftime('%Y/%m/%d %H:%M'))
 
         # When she hits enter, the page updates, and now the page lists
         # "9am - 10am: Meeting with Dan from B2C" as a booking in a booking list
